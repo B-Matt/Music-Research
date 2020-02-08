@@ -9,8 +9,9 @@ class AudioFeatures(object):
     (c) 2020. Matej Arlović
     """
     def __init__(self, segment_path):
-        self.audio, self.sample_rate = librosa.load(segment_path)
-        self.harmonic = librosa.effects.harmonic(self.audio)
+        self.segment_path = segment_path
+        self.audio, self.sample_rate = None, None
+        self.harmonic = None
 
     def extract_tempo_beats(self):
         """
@@ -28,7 +29,7 @@ class AudioFeatures(object):
             average beats inside audio track
         """
         tempo, beats = librosa.beat.beat_track(y=self.audio, sr=self.sample_rate)
-        return tempo, sum(beats), np.average(beats)
+        return pd.Series(tempo), pd.Series(sum(beats)), pd.Series(np.average(beats))
 
     def extract_zero_crossing(self):
         """
@@ -46,7 +47,7 @@ class AudioFeatures(object):
             standard deviation of a zero crossing
         """
         zcr = librosa.feature.zero_crossing_rate(self.audio)
-        return np.mean(zcr), np.var(zcr), np.std(zcr)
+        return pd.Series(np.mean(zcr)), pd.Series(np.var(zcr)), pd.Series(np.std(zcr))
 
     def extract_spectral_centroid(self):
         """
@@ -64,7 +65,7 @@ class AudioFeatures(object):
             standard deviation of a Spectral Centroid
         """
         cent = librosa.feature.spectral_centroid(self.audio, sr=self.sample_rate)
-        return np.mean(cent), np.var(cent), np.std(cent)
+        return pd.Series(np.mean(cent)), pd.Series(np.var(cent)), pd.Series(np.std(cent))
 
     def extract_spectral_rolloff(self):
         """
@@ -82,7 +83,7 @@ class AudioFeatures(object):
             standard deviation of a Spectral Rolloff
         """
         rolloff = librosa.feature.spectral_rolloff(self.audio, sr=self.sample_rate)
-        return np.mean(rolloff), np.var(rolloff), np.std(rolloff)
+        return pd.Series(np.mean(rolloff)), pd.Series(np.var(rolloff)), pd.Series(np.std(rolloff))
 
     def extract_chroma_freq(self):
         """
@@ -101,7 +102,7 @@ class AudioFeatures(object):
         """
         stft = np.abs(librosa.stft(self.audio))
         chroma = librosa.feature.chroma_stft(S=stft, sr=self.sample_rate)
-        return np.mean(chroma), np.var(chroma), np.std(chroma)
+        return pd.Series(np.mean(chroma)), pd.Series(np.var(chroma)), pd.Series(np.std(chroma))
 
     def extract_mccs(self):
         """
@@ -119,7 +120,7 @@ class AudioFeatures(object):
             standard deviation of a Mel-Frequency Cepstral Coefficients
         """
         mfccs = librosa.feature.mfcc(y=self.audio, sr=self.sample_rate, n_mfcc=40)
-        return np.mean(mfccs), np.var(mfccs), np.std(mfccs)
+        return pd.Series(np.mean(mfccs)), pd.Series(np.var(mfccs)), pd.Series(np.std(mfccs))
 
     def extract_tonnetz(self):
         """
@@ -137,7 +138,7 @@ class AudioFeatures(object):
             standard deviation of a Tonnetz
         """
         tonnetz = librosa.feature.tonnetz(y=self.harmonic, sr=self.sample_rate)
-        return np.mean(tonnetz), np.var(tonnetz), np.std(tonnetz)
+        return pd.Series(np.mean(tonnetz)), pd.Series(np.var(tonnetz)), pd.Series(np.std(tonnetz))
 
     def extract_harmonics(self):
         """
@@ -154,7 +155,7 @@ class AudioFeatures(object):
         harmonic_std : float
             standard deviation of a Harmonics
         """
-        return np.mean(self.harmonic), np.var(self.harmonic), np.std(self.harmonic)
+        return pd.Series(np.mean(self.harmonic)), pd.Series(np.var(self.harmonic)), pd.Series(np.std(self.harmonic))
 
     def extract_percussive(self):
         """
@@ -172,20 +173,19 @@ class AudioFeatures(object):
             standard deviation of a Percussive
         """
         percussive = librosa.effects.percussive(self.audio)
-        return np.mean(percussive), np.var(percussive), np.std(percussive)
+        return pd.Series(np.mean(percussive)), pd.Series(np.var(percussive)), pd.Series(np.std(percussive))
 
-    def extract_all_features(self, song_name, song_length):
+    def extract_segment_features(self):
         """
-        Extracts all features from the audio file.
+        Extracts features from the segments of an audio file.
 
         Returns
         -------
         features : directory
             directory of all features
         """
+
         features = pd.DataFrame()
-        features['name'] = song_name
-        features['length'] = song_length
         features['tempo'], features['total_beats'], features['average_beats'] = self.extract_tempo_beats()
         features['zcr_mean'], features['zcr_var'], features['zcr_std'] = self.extract_zero_crossing()
         features['cent_mean'], features['cent_var'], features['cent_std'] = self.extract_spectral_centroid()
@@ -196,3 +196,25 @@ class AudioFeatures(object):
         features['harmonic_mean'], features['harmonic_var'], features['harmonic_std'] = self.extract_harmonics()
         features['percussive_mean'], features['percussive_var'], features['percussive_std'] = self.extract_percussive()
         return features
+
+
+    def format_song_features(self, song_id, song_name, song_length, segments):
+        # Extract Segment #1
+        self.audio, self.sample_rate = librosa.load(self.segment_path + '/segment_%d.wav' % segments[0])
+        self.harmonic = librosa.effects.harmonic(self.audio)
+        segment_1 = self.extract_segment_features()
+
+        # Extract Segment #1
+        self.audio, self.sample_rate = librosa.load(self.segment_path + '/segment_%d.wav' % segments[1])
+        self.harmonic = librosa.effects.harmonic(self.audio)
+        segment_2 = self.extract_segment_features()
+
+        # Create Returning DataFrame
+        features = pd.DataFrame((segment_1 + segment_2) / 2)
+
+        features['id'] = pd.Series(song_id)
+        features['name'] = pd.Series(song_name)
+        features['length'] = pd.Series(song_length)
+        return features
+
+        

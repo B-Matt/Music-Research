@@ -1,6 +1,6 @@
 import ffmpeg
 
-class AudioFile(object):
+class AudioFFmpeg(object):
     """
     Handles all FFmpeg and FFprobe processes on an audio file and gives back information about it.
     
@@ -19,8 +19,8 @@ class AudioFile(object):
 
         None
         """
-        ffmpeg.input(self.song_path + 'full.mp3') \
-            .output(self.song_path + 'segment_%d.wav', f='segment', segment_time=self.segments_len, map=0) \
+        ffmpeg.input(self.song_path + '/full.mp3') \
+            .output(self.song_path + '/segment_%d.wav', f='segment', segment_time=self.segments_len, map=0) \
             .run()
 
     def get_audio_length(self):
@@ -33,4 +33,4 @@ class AudioFile(object):
         duration : Float
             duration of an audio file
         """
-        return float(ffmpeg.probe(self.song_path)['format']['duration'])
+        return float(ffmpeg.probe(self.song_path + "/full.mp3")['format']['duration'])
