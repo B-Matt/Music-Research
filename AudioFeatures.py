@@ -210,11 +210,12 @@ class AudioFeatures(object):
         segment_2 = self.extract_segment_features()
 
         # Create Returning DataFrame
-        features = pd.DataFrame((segment_1 + segment_2) / 2)
-
+        features = pd.DataFrame()
         features['id'] = pd.Series(song_id)
         features['name'] = pd.Series(song_name)
         features['length'] = pd.Series(song_length)
-        return features
+
+        #return features.append((segment_1 + segment_2) / 2, sort=False)
+        return pd.concat([features, (segment_1 + segment_2) / 2], axis=1)
 
         
