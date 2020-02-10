@@ -1,4 +1,5 @@
 import os
+import re
 from shutil import copyfile
 
 class FileManager(object):
@@ -66,14 +67,17 @@ class FileManager(object):
             -------
 
             None
-        """
-        songs_name = song.split('.')
+        """        
         songs_old_path = os.path.join(self.raw_path, song_genre)
         songs_old_path_full = os.path.join(songs_old_path, song)
+        _, song_extension = os.path.splitext(songs_old_path_full)
 
-        songs_new_path = os.path.join(self.formated_path, songs_name[0])
-        songs_new_path_full = os.path.join(songs_new_path, song)
-        songs_new_name = os.path.join(songs_new_path, (song_genre + "." + songs_name[1]))
+        songs_new_path = os.path.join(self.formated_path, song)
+        regex = r".mp3"
+        songs_new_path = re.sub(regex, "", songs_new_path)
+
+        songs_new_path_full = os.path.join(songs_new_path, song)        
+        songs_new_name = os.path.join(songs_new_path, (song_genre + song_extension))
 
         os.mkdir(songs_new_path)
         copyfile(songs_old_path_full, songs_new_path_full)
