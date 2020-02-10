@@ -122,6 +122,44 @@ class AudioFeatures(object):
         mfccs = librosa.feature.mfcc(y=self.audio, sr=self.sample_rate, n_mfcc=40)
         return pd.Series(np.mean(mfccs)), pd.Series(np.var(mfccs)), pd.Series(np.std(mfccs))
 
+    def extract_mccs_delta(self):
+        """
+        Extracts the delta value of a Mel-Frequency Cepstral Coefficients of a signal inside audio file.
+
+        Returns
+        -------
+        mfccs_delta_mean : float 
+            mean of delta value of a Mel-Frequency Cepstral Coefficients
+
+        mfccs_delta_var : float
+            variance of delta value of a Mel-Frequency Cepstral Coefficients
+
+        mfccs_delta_std : float
+            standard deviation of delta value of a Mel-Frequency Cepstral Coefficients
+        """
+        mfccs = librosa.feature.mfcc(y=self.audio, sr=self.sample_rate, n_mfcc=40)
+        mfcc_delta = librosa.feature.delta(mfccs)
+        return pd.Series(np.mean(mfcc_delta)), pd.Series(np.var(mfcc_delta)), pd.Series(np.std(mfcc_delta))
+
+
+    def extract_melspectrogram(self):
+        """
+        Extracts the Mel Spectrogram of a signal inside audio file.
+
+        Returns
+        -------
+        mel_mean : float 
+            mean of a Mel Spectrogram
+
+        mel_var : float
+            variance of a Mel Spectrogram
+
+        mel_std : float
+            standard deviation of a Mel Spectrogram
+        """
+        mel = librosa.feature.melspectrogram(y=self.audio, sr=self.sample_rate)
+        return pd.Series(np.mean(mel)), pd.Series(np.var(mel)), pd.Series(np.std(mel))
+
     def extract_tonnetz(self):
         """
         Extracts the Tonnetz of a signal inside audio file.
@@ -139,6 +177,24 @@ class AudioFeatures(object):
         """
         tonnetz = librosa.feature.tonnetz(y=self.harmonic, sr=self.sample_rate)
         return pd.Series(np.mean(tonnetz)), pd.Series(np.var(tonnetz)), pd.Series(np.std(tonnetz))
+
+    def extract_spectral_bandwidth(self):
+        """
+        Extracts the Spectral Bandwidth of a signals energy.
+
+        Returns
+        -------
+        spec_bw_mean : float 
+            mean of a Spectral Bandwidth
+
+        spec_bw_var : float
+            variance of a Spectral Bandwidth
+
+        spec_bw_std : float
+            standard deviation of a Spectral Bandwidth
+        """
+        spec_bw = librosa.feature.spectral_bandwidth(y=self.audio, sr=self.sample_rate)
+        return pd.Series(np.mean(spec_bw)), pd.Series(np.var(spec_bw)), pd.Series(np.std(spec_bw))
 
     def extract_harmonics(self):
         """
@@ -181,8 +237,8 @@ class AudioFeatures(object):
 
         Returns
         -------
-        features : directory
-            directory of all features
+        features : DataFrame
+            Pandas DataFrame of all features
         """
 
         features = pd.DataFrame()
@@ -192,13 +248,23 @@ class AudioFeatures(object):
         features['rolloff_mean'], features['rolloff_var'], features['rolloff_std'] = self.extract_spectral_rolloff()
         features['chroma_mean'], features['chroma_var'], features['chroma_std'] = self.extract_chroma_freq()
         features['mfccs_mean'], features['mfccs_var'], features['mfccs_std'] = self.extract_mccs()
+        features['mfccs_delta_mean'], features['mfccs_delta_var'], features['mfccs_delta_std'] = self.extract_mccs_delta()
+        features['mel_mean'], features['mel_var'], features['mel_std'] = self.extract_melspectrogram()
         features['tonnetz_mean'], features['tonnetz_var'], features['tonnetz_std'] = self.extract_tonnetz()
+        features['spec_bw_mean'], features['spec_bw_var'], features['spec_bw_std'] = self.extract_spectral_bandwidth()
         features['harmonic_mean'], features['harmonic_var'], features['harmonic_std'] = self.extract_harmonics()
         features['percussive_mean'], features['percussive_var'], features['percussive_std'] = self.extract_percussive()
         return features
 
-
     def format_song_features(self, song_id, song_name, song_length, segments):
+        """
+        Extracts features from given segments and saves mean into DataFrame.
+
+        Returns
+        -------
+        features : DataFrame
+            Pandas DataFrame with features
+        """
         # Extract Segment #1
         self.audio, self.sample_rate = librosa.load(self.segment_path + '/segment_%d.wav' % segments[0])
         self.harmonic = librosa.effects.harmonic(self.audio)
@@ -214,8 +280,6 @@ class AudioFeatures(object):
         features['id'] = pd.Series(song_id)
         features['name'] = pd.Series(song_name)
         features['length'] = pd.Series(song_length)
-
-        #return features.append((segment_1 + segment_2) / 2, sort=False)
         return pd.concat([features, (segment_1 + segment_2) / 2], axis=1)
 
         

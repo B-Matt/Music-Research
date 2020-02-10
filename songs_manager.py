@@ -14,4 +14,7 @@ song_genres = file_manager.get_song_geners()
 for genre in song_genres:
     songs_by_genre = file_manager.get_songs_by_genre(genre)
     for song in songs_by_genre:
-        file_manager.format_raw_data(song, genre)
+        try:
+            file_manager.format_raw_data(song, genre)
+        except Exception:
+            continue

@@ -72,8 +72,10 @@ class FileManager(object):
         songs_old_path_full = os.path.join(songs_old_path, song)
         _, song_extension = os.path.splitext(songs_old_path_full)
 
+        regex = r"(\s.mp3)|(\s.wav)"
+        song = re.sub(regex, song_extension, song)
         songs_new_path = os.path.join(self.formated_path, song)
-        regex = r".mp3"
+        regex = r"(.mp3)|(.wav)"
         songs_new_path = re.sub(regex, "", songs_new_path)
 
         songs_new_path_full = os.path.join(songs_new_path, song)        
