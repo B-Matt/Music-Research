@@ -6,11 +6,10 @@ class AudioFFmpeg(object):
     
     (c) 2020. Matej Arlović
     """
-    def __init__(self, path, segments_len):
-        self.song_path = path
-        self.segments_len = segments_len
+    def __init__(self):
+        pass
 
-    def generate_audio_segments(self):
+    def generate_audio_segments(self, song_path, song_dir, segments_len):
         """
         Generates equal segments of audio file that last for 30 seconds. 
 
@@ -19,11 +18,11 @@ class AudioFFmpeg(object):
 
         None
         """
-        ffmpeg.input(self.song_path + '/full.mp3') \
-            .output(self.song_path + '/segment_%d.wav', f='segment', segment_time=self.segments_len, map=0) \
+        ffmpeg.input(song_path) \
+            .output(song_dir + '/segment_%d.wav', f='segment', segment_time=segments_len, map=0) \
             .run()
 
-    def get_audio_length(self):
+    def get_audio_length(self, song_path):
         """
         Gets duration of an audio file.
 
@@ -33,4 +32,4 @@ class AudioFFmpeg(object):
         duration : Float
             duration of an audio file
         """
-        return float(ffmpeg.probe(self.song_path + "/full.mp3")['format']['duration'])
+        return float(ffmpeg.probe(song_path)['format']['duration'])
