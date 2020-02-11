@@ -1,0 +1,98 @@
+body{
+    background: url("../images/headphones_background.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#box{
+    color: rgb(233, 195, 125);
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100vh;
+    height: 40%;
+    margin-top: 10%;
+    padding: 100px;
+    padding-left: 150px;
+    padding-right: 150px;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(10, 10, 9, 0.849);
+    border-radius: 30px;
+    box-sizing: border-box;
+}
+
+h1{
+    font-family: 'Lobster', Georgia, Times, serif;
+    font-size: 3vw;
+}
+
+#btnStart{
+    margin: 0 auto;
+
+    font-size: 1.5vw;
+    margin-top: 15%;
+    height: 60px;
+    width: 150px;
+    border-radius: 10px;
+}
+#btnStart:hover {
+    color: white;
+}
+
+#navigation{
+    color: rgb(233, 195, 125);
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;   
+}
+
+#chooseFile{
+    margin: 0 auto;
+    font-size: 1vw;
+    margin-top: 15%;
+    height: 40px;
+    width: 270px;
+}
+
+#findOut{
+    margin: 0 auto;
+    font-size: 1vw;
+    margin-left: 15%;
+    height: 50px;
+    width: 230px;
+}
+
+#songName{
+    font-size: 1.2vw;
+    margin-top: 5%; 
+    display:block; 
+    height: 15%;
+    background-color: rgb(140, 237, 240);
+}
+
+#genre{
+    margin: 0 auto;
+    font-size: 1.2vw;
+    margin-top: 5%; 
+    height: 15%;
+    display:block; 
+    background-color: rgb(140, 237, 240);
+}
+
+#tryAgain{
+    margin: 0 auto;
+    margin-top: 4%;
+    font-size: 1.2vw;
+    height: fit-content;
+    width: fit-content; 
+    border-radius: 10px;
+}
