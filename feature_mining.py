@@ -14,14 +14,18 @@ for song in list(os.walk(song_directory))[1::]:
     song_directory = song[0]
     song_full_name = ''.join(song[2])
     song_path = song_directory + "/" + song_full_name
-    print(song_directory)
     song = ffmpeg.AudioFFmpeg()
 
     ## Generate Segments
-    song.generate_audio_segments(song_path, song_directory, segments_len)
-
-    ## Get Audio File Features    
     length = song.get_audio_length(song_path)
+    if length > 30:
+        try:
+            if song[2][1] is None:
+                pass
+        except IndexError:
+            song.generate_audio_segments(song_path, song_directory, segments_len)        
+
+    ## Get Audio File Features
     segments = round(round(length / segments_len) / 2)
     song_features = af.AudioFeatures(song_directory, csv_directory)
 
