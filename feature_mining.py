@@ -1,19 +1,24 @@
 import os
 import re
-from joblib import Parallel, delayed
+import pandas as pd
+from multiprocessing import Pool
 import AudioFFmpeg as ffmpeg
 import AudioFeatures as af
 
+import time
+
+start_time = time.time()
 ## Global Parameters
 song_directory = 'media/songs/'
 csv_directory = 'media/dataset.csv'
 segments_len = 30
-id = 1
-n_jobs = 4
+song_id = 1
 
 ## Process Songs
-def process_songs(song):
-    global id
+features = []
+
+def extract_features(song):
+    global song_id
     song_directory = song[0]
     song_full_name = song[2][0]
     song_path = song_directory + "/" + song_full_name
@@ -21,7 +26,7 @@ def process_songs(song):
 
     ## Generate Segments
     length = ffmpeg_song.get_audio_length(song_path)
-    if length > 30:
+    if length > 31:
         try:
             if song[2][1] is None:
                 pass
@@ -30,14 +35,34 @@ def process_songs(song):
 
     ## Get Audio File Features
     segments = round(round(length / segments_len) / 2)
-    song_features = af.AudioFeatures(song_directory, csv_directory)
+    song_features = af.AudioFeatures(song_directory)
 
     ## Show Features
     song_path_info = song_directory.split("/")
     regex = r"(.mp3)|(.wav)"
     song_full_name = re.sub(regex, "", song_full_name)
-    song_features.format_song_features(id, song_path_info[2], song_full_name, length, (segments, segments + 1))
-    id = id + 1
+    data = song_features.format_song_features(song_id, song_path_info[2], song_full_name, length, (segments, segments + 1))
 
-## Paralel Feature Extraction
-Parallel(n_jobs=n_jobs, prefer="threads")(delayed(process_songs)(song) for song in list(os.walk(song_directory))[1::])
+    features.append(data)
+    song_id = song_id + 1
+
+def save_features_csv(csv_name, feature_list):
+    """
+        Appends extracted features to the CSV file.
+
+        Returns
+        -------
+        None
+    """
+    dataset = pd.DataFrame(feature_list)
+    dataset.to_csv(csv_name, mode='a', header=False, index=False)  
+
+## Process Songs Inside Directory
+for song in list(os.walk(song_directory))[1::]:
+    extract_features(song)
+
+    if song_id > 3:
+        break
+
+save_features_csv(csv_directory, features)
+print("--- %s seconds ---" % (time.time() - start_time))
