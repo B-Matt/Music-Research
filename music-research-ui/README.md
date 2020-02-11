@@ -1,4 +1,4 @@
-This project is made in ReactJS
+## This project is made in ReactJS with simple interface and Axios client. ##
 
 ## Available Scripts
 
