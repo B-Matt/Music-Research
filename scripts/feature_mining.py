@@ -20,7 +20,6 @@ features = []
 def extract_features(song):
     global song_id, features
 
-    print(song)
     song_directory = song[0]
     song_full_name = song[2][0]
     song_path = song_directory + "/" + song_full_name
