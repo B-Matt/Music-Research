@@ -5,8 +5,8 @@
 """
 import FileManager as fm
 
-songs_dir = "media/songs/raw"
-songs_format_dir = "media/songs"
+songs_dir = "../media/raw"
+songs_format_dir = "../media/songs"
 
 file_manager = fm.FileManager(songs_dir, songs_format_dir)
 song_genres = file_manager.get_song_geners()

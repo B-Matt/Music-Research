@@ -7,7 +7,7 @@
 import os
 import FileManager as fm
 
-songs_dir = "media/songs/raw"
+songs_dir = "../media/songs/raw"
 file_manager = fm.FileManager(songs_dir)
 
 song_genres = file_manager.get_song_geners()

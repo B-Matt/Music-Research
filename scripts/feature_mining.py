@@ -9,8 +9,8 @@ import time
 
 start_time = time.time()
 ## Global Parameters
-song_directory = 'media/songs/'
-csv_directory = 'media/dataset.csv'
+song_directory = "../media/songs/"
+csv_directory = "../dataset.csv"
 segments_len = 30
 song_id = 1
 
@@ -44,6 +44,7 @@ def extract_features(song):
     data = song_features.format_song_features(song_id, song_path_info[2], song_full_name, length, (segments, segments + 1))
 
     features.append(data)
+    print(" %s) %s" % (song_id, song_directory))
     song_id = song_id + 1
 
 def save_features_csv(csv_name, feature_list):
@@ -58,11 +59,8 @@ def save_features_csv(csv_name, feature_list):
     dataset.to_csv(csv_name, mode='a', header=False, index=False)  
 
 ## Process Songs Inside Directory
-for song in list(os.walk(song_directory))[1::]:
+for song in list(os.walk(song_directory)):
     extract_features(song)
 
-    if song_id > 3:
-        break
-
 save_features_csv(csv_directory, features)
-print("--- %s seconds ---" % (time.time() - start_time))
+print("  Feature extraction took: %s seconds." % (time.time() - start_time))
