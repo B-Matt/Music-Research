@@ -6,8 +6,8 @@ class FileManager(object):
     """
     """
     def __init__(self, raw_path, formated_path):
-        self.raw_path = raw_path
-        self.formated_path = formated_path
+        self.raw_path = os.path.normpath(os.getcwd() + raw_path)
+        self.formated_path = os.path.normpath(os.getcwd() + formated_path)
 
     def get_song_geners(self):
         """
