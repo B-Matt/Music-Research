@@ -1,9 +1,13 @@
+"""
+    (c) 2020. Matej Arlović, Franjo Josip Jukić
+"""
 import os
 import re
 from shutil import copyfile
 
 class FileManager(object):
     """
+        Handles files and folder when user wants to extract features for custom dataset.
     """
     def __init__(self, raw_path, formated_path):
         self.raw_path = os.path.normpath(os.getcwd() + raw_path)

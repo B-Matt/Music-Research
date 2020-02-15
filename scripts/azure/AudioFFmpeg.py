@@ -1,10 +1,11 @@
+"""
+    (c) 2020. Matej Arlović, Franjo Josip Jukić
+"""
 import ffmpeg
 
 class AudioFFmpeg(object):
     """
     Handles all FFmpeg and FFprobe processes on an audio file and gives back information about it.
-    
-    (c) 2020. Matej Arlović
     """
     def __init__(self):
         pass
@@ -24,12 +25,12 @@ class AudioFFmpeg(object):
 
     def get_audio_length(self, song_path):
         """
-        Gets duration of an audio file.
+            Gets duration of an audio file.
 
-        Returns
-        -------
+            Returns
+            -------
 
-        duration : Float
-            duration of an audio file
+            duration : Float
+                duration of an audio file
         """
         return float(ffmpeg.probe(song_path)['format']['duration'])

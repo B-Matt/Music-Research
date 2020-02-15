@@ -1,3 +1,6 @@
+"""
+    (c) 2020. Matej Arlović, Franjo Josip Jukić
+"""
 import librosa
 import numpy as np
 import itertools 
@@ -5,9 +8,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 class AudioFeatures(object):
     """
-    Class that handles feature extraction from the given audio file
-
-    (c) 2020. Matej Arlović
+        Handles feature extraction from the given audio file.
     """
     executors_list = []    
 
