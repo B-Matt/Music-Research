@@ -71,8 +71,8 @@ h1{
     width: 230px;
 }
 
-#songName{
-    font-size: 1.2vw;
+#fileName{
+    font-size: 1.3vw;
     margin-top: 5%; 
     display:block; 
     height: 15%;
@@ -80,7 +80,7 @@ h1{
 
 #genre{
     margin: 0 auto;
-    font-size: 1.2vw;
+    font-size: 1.3vw;
     margin-top: 5%; 
     height: 15%;
     display:block; 

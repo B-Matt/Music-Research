@@ -139,8 +139,8 @@ class Home extends React.Component {
         else if (step === 3) {
             return <span>
                 <h1 id="song">Result:</h1>
-                <h1 id="fileName">File Name: {this.state.fileName}</h1>
-                <h1 id="genre">Song Genre: {this.state.songGenre}</h1>
+                <h1 id="fileName"><b>File Name:</b> {this.state.fileName}</h1>
+                <h1 id="genre"><b>Song Genre:</b> {this.state.songGenre}</h1>
                 <div>
                     {this.state.genre != null && this.state.songName != null ?
                         <Button variant="warning" id="tryAgain" onClick={this.nextStep}>Try again</Button>
