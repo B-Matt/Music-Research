@@ -10,26 +10,7 @@ export default class HttpClient extends React.Component {
         this.blobUrl = 'https://mrsongs.blob.core.windows.net/';
     }
 
-    uploadSong = async (blob, uuid) => {
-        return axios({
-            mode: 'no-cors',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json',
-            },
-            method: 'post',
-            url: this.blobUrl + uuid,
-            timeout: 3000,
-            data: blob
-        }).then(response => {
-            return {
-                status: response.status,
-                data: response.data
-            }
-        })
-    }
-
-    uploadBlobContainer = async (file,uuid) => {
+    uploadBlobSong = async (file,uuid) => {
         const STORAGE_ACCOUNT_NAME = 'mrsongs';
         const CONTAINER_NAME = 'assets/'+ uuid;
         // for browser, SAS_TOKEN is get from API?
