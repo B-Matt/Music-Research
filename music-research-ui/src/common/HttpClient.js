@@ -34,7 +34,7 @@ export default class HttpClient extends React.Component {
         const CONTAINER_NAME = 'assets/'+ uuid;
         // for browser, SAS_TOKEN is get from API?
         //missing const SAS_TOKEN = "here goes your sas token"
-        const SAS_TOKEN = "?sv=2019-02-02&ss=b&srt=sco&sp=rwdlac&se=2020-02-15T19:52:02Z&st=2020-02-15T11:52:02Z&spr=https,http&sig=Qp6qQClAjaMfzbs065WLBIWMx1ZzahkNttARJbmZ7bI%3D";
+        const SAS_TOKEN = "";
         const sasURL = `https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${SAS_TOKEN}`;
       
         const blobServiceClient = new BlobServiceClient(sasURL)
