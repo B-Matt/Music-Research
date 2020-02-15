@@ -21,6 +21,7 @@ class Home extends React.Component {
         this.nextStep = this.nextStep.bind(this);
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.uploadSong = this.uploadSong.bind(this);
+        this.uuidv1 = this.uuidv1.bind(this);
     }
 
     nextStep() {
@@ -39,24 +40,31 @@ class Home extends React.Component {
             });
         }
     }
+    uuidv1() {
+        const createUuid = require('uuid/v1');
+        return createUuid();
+      }
+    
 
     async uploadSong() {
         try {
-            this.response = await this.httpClient.uploadSong(this.state.selectedFile);
-            this.response ?
+            this.httpClient.uploadBlobContainer(this.state.selectedFile, this.uuidv1()).then(response => {
+                response ?
                 toast.success('Upload song on Server successful!', { duration: 2000 })
                 :
                 toast.error('Upload song on Server failed!', { duration: 2000 })
+            })
         } catch (error) {
             console.log(error);
         }
     }
 
     onChangeHandler = event => {
-        var files = event.target.files
+        var file = event.target.files[0];
         if (this.checkMimeType(event) && this.checkFileSize(event)) {
             this.setState({
-                selectedFile: files
+                selectedFile: file,
+                fileName: file.name
             });
         }
     }
@@ -97,7 +105,7 @@ class Home extends React.Component {
         };
         if (err !== '') {
             event.target.value = null;
-            toast.error('File is too large, please pick a smaller file',
+            toast.error('File is too large, please pick a smaller file (MAX 30MB)',
                 {
                     hideProgressBar: true,
                     position: "bottom-right",
@@ -114,7 +122,7 @@ class Home extends React.Component {
         if (step === 1) {
             return <span>
                 <h1>
-                    Can we guess your music genre?
+                    Find your song genre
             </h1>
                 <Button variant="warning" id="btnStart" onClick={this.nextStep}>Continue</Button>
             </span>;
@@ -130,9 +138,9 @@ class Home extends React.Component {
         }
         else if (step === 3) {
             return <span>
-                <h1 id="song">Song genre is:</h1>
-                <h1 id="songName">{this.state.songName}</h1>
-                <h1 id="genre">{this.state.genre}</h1>
+                <h1 id="song">Result:</h1>
+                <h1 id="fileName">File Name: {this.state.fileName}</h1>
+                <h1 id="genre">Song Genre: {this.state.songGenre}</h1>
                 <div>
                     {this.state.genre != null && this.state.songName != null ?
                         <Button variant="warning" id="tryAgain" onClick={this.nextStep}>Try again</Button>

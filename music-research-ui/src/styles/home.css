@@ -57,7 +57,7 @@ h1{
 
 #chooseFile{
     margin: 0 auto;
-    font-size: 1vw;
+    font-size: 0.9vw;
     margin-top: 15%;
     height: 40px;
     width: 270px;
@@ -76,7 +76,6 @@ h1{
     margin-top: 5%; 
     display:block; 
     height: 15%;
-    background-color: rgb(140, 237, 240);
 }
 
 #genre{
@@ -85,7 +84,6 @@ h1{
     margin-top: 5%; 
     height: 15%;
     display:block; 
-    background-color: rgb(140, 237, 240);
 }
 
 #tryAgain{
