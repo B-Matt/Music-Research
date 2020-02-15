@@ -3,7 +3,7 @@
 
     (c) 2020. Matej Arlović
 """
-import FileManager as fm
+import filemanager as fm
 
 songs_dir = "/media/raw"
 songs_format_dir = "/media/songs"

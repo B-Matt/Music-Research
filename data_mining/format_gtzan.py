@@ -5,7 +5,7 @@
 """
 
 import os
-import FileManager as fm
+import filemanager as fm
 
 songs_dir = "../media/songs/raw"
 file_manager = fm.FileManager(songs_dir)

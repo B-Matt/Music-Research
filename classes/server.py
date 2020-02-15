@@ -1,14 +1,14 @@
 """
     (c) 2020. Matej Arlović, Franjo Josip Jukić
 """
-import BlobStorage as bs
+from . import blobstorage as bs
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import logging
 
 class ServerHandler(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
-        self.send_header('Content-type', 'application/json')
+        self.send_header('Content-type', 'text/html')
         self.end_headers()
 
     def do_GET(self):
