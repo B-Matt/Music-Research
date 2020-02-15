@@ -122,11 +122,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Custom files
-*.mp3
-*.wav
-*.exe
-
 # Azure Functions artifacts
 bin
 obj
