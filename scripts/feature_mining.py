@@ -12,7 +12,7 @@ start_time = time.time()
 song_directory = os.path.normpath(os.getcwd() + "/media/songs/")
 csv_directory = os.path.normpath(os.getcwd() + "/dataset1.csv")
 segments_len = 30
-song_id = 1
+song_id = 3404
 
 ## Process Songs
 features = []
@@ -21,8 +21,10 @@ def extract_features(song):
     global song_id, features
 
     song_directory = song[0]
-    song_full_name = song[2][0]
-    song_path = song_directory + "/" + song_full_name
+    song_genre = song[2][0]
+    song_path = song_directory + "/" + song_genre
+    song_name = os.path.basename(song_directory)
+
     ffmpeg_song = ffmpeg.AudioFFmpeg()
 
     ## Generate Segments
@@ -39,13 +41,12 @@ def extract_features(song):
     song_features = af.AudioFeatures(song_directory)
 
     ## Show Features
-    song_path_info = song_directory.split("\\")
     regex = r"(.mp3)|(.wav)"
-    song_full_name = re.sub(regex, "", song_full_name)
-    data = song_features.format_song_features(song_id, song_path_info[2], song_full_name, length, (segments, segments + 1))
+    song_genre = re.sub(regex, "", song_genre)
+    data = song_features.format_song_features(song_id, song_name, song_genre, length, (segments, segments + 1))
 
     features.append(data)
-    print(" %s) %s" % (song_id, song_directory))
+    print(" %s) %s" % (song_id, song_name))
     song_id = song_id + 1
 
 def save_features_csv(csv_name, feature_list):

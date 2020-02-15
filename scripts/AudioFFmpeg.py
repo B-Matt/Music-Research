@@ -19,7 +19,7 @@ class AudioFFmpeg(object):
         None
         """
         ffmpeg.input(song_path) \
-            .output(song_dir + '/segment_%d.wav', f='segment', map_metadata=-1, segment_time=segments_len) \
+            .output(song_dir + '/x%d.wav', f='segment', map_metadata=-1, segment_time=segments_len) \
             .run()
 
     def get_audio_length(self, song_path):

@@ -116,8 +116,8 @@ class AudioFeatures(object):
         # Extract Segments
         with ThreadPoolExecutor(max_workers=50) as executor:            
             if song_length > 31:
-                self.executors_list.append(executor.submit(self.extract_segment_features, (self.segment_path + '/segment_%d.wav' % segments[0])))
-                self.executors_list.append(executor.submit(self.extract_segment_features, (self.segment_path + '/segment_%d.wav' % segments[1])))
+                self.executors_list.append(executor.submit(self.extract_segment_features, (self.segment_path + '/x%d.wav' % segments[0])))
+                self.executors_list.append(executor.submit(self.extract_segment_features, (self.segment_path + '/x%d.wav' % segments[1])))
             else:
                 self.executors_list.append(executor.submit(self.extract_segment_features, (self.segment_path + '/%s.wav' % song_class)))
         
