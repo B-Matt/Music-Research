@@ -17,8 +17,10 @@ class BlobStorage(object):
     def list_container_blobs(self):
         generator = self.block_blob_service.list_blobs(self.storage_container)
         response = ""
-
         for blob in generator:
-            response += (blob.name + "\n")
-        
+            response += (blob.name + "\n")        
         return response
+
+    def get_blob_folder(self, uuid):
+        generator = self.block_blob_service.list_blobs(self.storage_container, prefix=(uuid + "/"))
+        return len(list(generator)) == 1
