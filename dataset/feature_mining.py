@@ -7,10 +7,10 @@ import time
 
 start_time = time.time()
 ## Global Parameters
-song_directory = os.path.normpath(os.getcwd() + "/media/songs/")
-csv_directory = os.path.normpath(os.getcwd() + "/dataset/dataset_new.csv")
+song_directory = os.path.normpath(os.getcwd() + "/dataset/music/songs/")
+csv_directory = os.path.normpath(os.getcwd() + "/dataset/msr_dataset_v2.csv")
 segments_len = 30
-song_id = 3404
+song_id = 3406
 
 ## Process Songs
 features = []
