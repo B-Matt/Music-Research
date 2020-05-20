@@ -3,10 +3,10 @@ import os
 
 class BlobStorage(object):
 	account_name = "mrsongs"
-	account_key = "PbaD3PTZtvWqWB1jhYpZogPQ0TrGSV39vWnJkb4ToMmH7NIwJW4/XO65H3ifN8nSrFe57NLHjeIjCmeK2IpvMQ=="
+	account_key = "#"
 	endpoint_suffix = "core.windows.net"
 	storage_container = "assets"
-	storage_sas = "https://mrsongs.blob.core.windows.net/assets?sp=racwdl&st=2020-02-21T14:27:12Z&se=2022-02-22T14:27:00Z&sv=2019-02-02&sr=c&sig=ev65N9sg7V8czIwlnlTNYlf4AJ%2FEDC13PRzttFgnZQk%3D"
+	storage_sas = "#"
 	
 	def __init__(self):
 		self.blob_service = BlockBlobService(account_name=self.account_name, account_key=self.account_key, sas_token=self.storage_sas, endpoint_suffix=self.endpoint_suffix)
