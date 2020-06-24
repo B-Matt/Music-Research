@@ -1,0 +1,11 @@
+footer {
+    position: bottom;
+    left: 0;
+    bottom: 0;
+    font-size: 20px;
+    margin-top: 20px;
+    width: 100%;
+    color: rgb(22, 21, 21);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+}

@@ -1,0 +1,111 @@
+
+.navBar {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    height: 10vh;
+}
+
+.songs{
+    background: linear-gradient(to right, #368ec9, #30cc8b);
+    height: 100vh;
+}
+
+.containerTable{
+    background-color: whitesmoke;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    line-height: 60px;
+    z-index: 500;
+}
+
+nav ul {
+    line-height: 60px;
+    list-style: none;
+    background: rgba(0, 0, 0, 0);
+    padding: 0;
+    text-align: left;
+    margin: 0;
+    transition: background-color 500ms linear;
+}
+
+nav.black ul {
+    background: rgba(0, 0, 0, 0.852);
+}
+
+nav ul li {
+    display: inline-block;
+    padding: 16px 40px;;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 23px;
+    font-weight: bold;
+    font-family: cursive, sans-serif;
+}
+
+a:hover {
+    color: #b8cccc;
+    text-decoration: unset;
+}
+
+nav ul li.nav-item.active {
+    color: #b8cccc;
+}
+
+@media(max-width: 786px) {
+
+    nav ul {
+        max-height: 0px;
+        background: #000;
+    }
+
+    nav.black ul {
+        background: #000;
+    }
+
+    nav ul li {
+        box-sizing: border-box;
+        width: 100%;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.826);
+    }
+
+    a:hover {
+        color: #9a9e9e;
+        text-decoration: unset;
+    }
+}
+
+.modal-header{
+    text-align: center;
+    display: block;
+}
+
+h4{
+    font-size: 30px;
+}
+
+.table td, .table th{
+    font-size: 20px;
+}
+
+.btn {
+    font-size: 17px;
+}
+
+.form-control{
+    font-size: 2rem;
+}
+.alert{
+    font-size: 1.8rem;
+}

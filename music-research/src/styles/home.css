@@ -1,0 +1,219 @@
+.card {
+    display: block;
+    margin: 50px auto 30px auto;
+    width: 350px;
+    height: 360px;
+    padding: 5px;
+}
+.card-title{
+    margin: 10px auto;
+    width: 150px;
+    height: 50px;
+    font-family: Roboto;
+}
+
+h4{
+    margin-top: 10px;
+    font-size: 2em;
+}
+
+h2{
+    font-family: Roboto;
+    font-weight: 500;
+}
+
+img{
+    width: 340px;
+    height: 300px;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+h1{
+    margin: 0;
+}
+
+#title {
+    display: flex;
+    font-size: 600%;
+    color: #16415f;
+    font-family: Roboto;
+    margin: 0 auto;
+    display: grid;
+    place-items: center;
+    height: 80vh;
+}
+
+  .arrows {
+      width: 60px;
+      height: 172px;
+      position: absolute;
+      left: 50%;
+      margin-left: -30px;
+      bottom: 20px;
+  }
+  
+  .arrows path {
+      stroke: #dfe6eb;
+      fill: transparent;
+      stroke-width: 5px;	
+      animation: arrow 2s infinite;
+      -webkit-animation: arrow 2s infinite; 
+  }
+  
+  @keyframes arrow
+  {
+  0% {opacity:0}
+  40% {opacity:1}
+  60% {opacity:0}
+  80% {opacity:0}
+  100% {opacity:0}
+  }
+  
+  @-webkit-keyframes arrow /*Safari and Chrome*/
+  {
+  0% {opacity:0}
+  40% {opacity:1}
+  60% {opacity:0}
+  80% {opacity:0}
+  100% {opacity:0}
+  }
+  
+  .arrows path.a1 {
+    animation-delay:-1.5s;
+    -webkit-animation-delay:-1.5s; /* Safari and Chrome */
+  }
+
+  .arrows path.a2 {
+      animation-delay:-1s;
+      -webkit-animation-delay:-1s; /* Safari and Chrome */
+  }
+  
+  .arrows path.a3 {
+      animation-delay:-0.5s;
+      -webkit-animation-delay:-0.5s; /* Safari and Chrome */
+  }
+  
+  .arrows path.a4 {	
+      animation-delay:0s;
+      -webkit-animation-delay:0s; /* Safari and Chrome */
+  }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: Roboto;
+    overflow-x: hidden;
+    color: #333;
+  }
+  
+  .new-section {
+    padding-top: 50px;
+    text-align: center;
+    font-size: 4em;
+    font-weight: 100;
+  }
+    
+  header {
+    position: relative;
+    text-align: center;
+    height: 100vh;
+    background: linear-gradient(to right, #368ec9, #30cc8b);
+    color: #fff;
+  }
+  
+  header h1 {
+    padding-top: 100px;
+    padding-top: -webkit-calc(50vh - 113px);
+    padding-top: expression(50vh - 113px);
+    padding-top: -moz-calc(50vh - 113px);
+    padding-top: -o-calc(50vh - 113px);
+    padding-top: calc(50vh - 113px);
+    font-size: 7em;
+    font-weight: 100;
+  }
+  
+  header h2 {
+    font-size: 2em;
+  }
+
+  @keyframes blink {
+    /**
+     * At the start of the animation the dot
+     * has an opacity of .2
+     */
+    0% {
+      opacity: .2;
+    }
+    /**
+     * At 20% the dot is fully visible and
+     * then fades out slowly
+     */
+    20% {
+      opacity: 1;
+    }
+    /**
+     * Until it reaches an opacity of .2 and
+     * the animation can start again
+     */
+    100% {
+      opacity: .2;
+    }
+}
+
+.saving .dot {
+    /**
+     * Use the blink animation, which is defined above
+     */
+    animation-name: blink;
+    /**
+     * The animation should take 1.4 seconds
+     */
+    animation-duration: 1.4s;
+    /**
+     * It will repeat itself forever
+     */
+    animation-iteration-count: infinite;
+    /**
+     * This makes sure that the starting style (opacity: .2)
+     * of the animation is applied before the animation starts.
+     * Otherwise we would see a short flash or would have
+     * to set the default styling of the dots to the same
+     * as the animation. Same applies for the ending styles.
+     */
+    animation-fill-mode: both;
+}
+
+.saving .dot:nth-child(2) {
+    /**
+     * Starts the animation of the third dot
+     * with a delay of .2s, otherwise all dots
+     * would animate at the same time
+     */
+    animation-delay: .2s;
+}
+
+.saving .dot:nth-child(3) {
+    /**
+     * Starts the animation of the third dot
+     * with a delay of .4s, otherwise all dots
+     * would animate at the same time
+     */
+    animation-delay: .4s;
+}
+
+#footer{
+
+    margin-left : auto;
+    margin-right : auto;
+    text-align : center;
+     position: absolute;
+     bottom: 0;
+    width: 100%;
+    height: auto;
+}

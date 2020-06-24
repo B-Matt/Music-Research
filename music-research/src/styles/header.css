@@ -1,0 +1,49 @@
+.logo{
+  height: 50px;
+  width: 100px;
+}
+
+.nav-item {
+  margin-left: 30px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #fff !important;
+  font-family: Roboto !important;  
+}
+.nav-item:hover {
+  font-style: italic;
+  font-weight: bolder;
+}
+
+#btnToggle{
+  margin: 3px;
+  padding: 8px 12px 8px 12px;
+  border-color: rgb(97, 97, 97);
+}
+
+#brandName{
+  font-size: 25px;
+  font-family: Roboto;
+  font-weight: bolder;
+  color: rgb(255, 250, 250) !important;
+}
+
+@media(max-width: 786px) {
+  nav{
+    background: rgba(0, 0, 0, 0.500);
+  }
+  .nav-item {
+        box-sizing: border-box;
+        margin-left: 0;    
+        margin-bottom: 1px;
+        text-align: center;
+        border-color: rgb(54, 53, 53);
+  }
+  #btnToggle{
+    background: rgba(207, 206, 206, 0.300);
+  }
+
+  #brandName{
+    color: rgb(201, 198, 198) !important;
+  }
+}
